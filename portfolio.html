@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juno Giordano — Redação & Conteúdo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,300;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:        #FAFAFA;
+      --cream:        #F2EBE0;
+      --black:        #111111;
+      --text:         #1A1A1A;
+      --gray:         #6B6B6B;
+      --gray-light:   #E0D8CC;
+      --mustard:      #C49A10;
+      --mustard-warm: #D4A017;
+
+      --serif:  'Playfair Display', Georgia, serif;
+      --body:   'Source Serif 4', Georgia, serif;
+      --mono:   'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--white); }
+    ::-webkit-scrollbar-thumb { background: var(--mustard); }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .logo {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo span { color: var(--mustard); }
+
+    nav { display: flex; gap: 2.5rem; align-items: center; }
+
+    nav a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    .nav-cta {
+      color: var(--white) !important;
+      background: var(--text);
+      padding: 0.5rem 1.2rem;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--mustard) !important;
+      color: var(--text) !important;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 4rem 5rem;
+      padding-top: 6rem;
+      border-bottom: 2px solid var(--text);
+      position: relative;
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    .hero-bg-char {
+      position: absolute;
+      right: -1rem;
+      bottom: -4rem;
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: 32vw;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--gray-light);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    #hero > *:not(.hero-bg-char) { position: relative; z-index: 1; }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mustard);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(3.5rem, 10vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      max-width: 920px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.4s forwards;
+      color: var(--text);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--mustard);
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.7s forwards;
+    }
+
+    .hero-tagline {
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--gray);
+      max-width: 400px;
+      font-style: italic;
+    }
+
+    .hero-tagline strong {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .hero-scroll {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .hero-scroll:hover { color: var(--text); }
+
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--mustard);
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 6rem 4rem;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mustard);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 1px;
+      background: var(--mustard);
+    }
+
+    /* ── SOBRE / SERVIÇOS ── */
+    #sobre {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .sobre-col .section-label { margin-bottom: 2rem; }
+
+    .sobre-text {
+      font-family: var(--body);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .sobre-text strong { font-weight: 700; }
+
+    /* serviços como links com âncora */
+    .servicos-grid {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .servico-item {
+      padding: 1.4rem 0;
+      border-top: 1px solid var(--gray-light);
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: padding-left 0.25s ease;
+    }
+
+    .servico-item:last-child { border-bottom: 1px solid var(--gray-light); }
+
+    .servico-item:hover { padding-left: 0.6rem; }
+
+    .servico-num {
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      color: var(--mustard);
+      letter-spacing: 0.1em;
+    }
+
+    .servico-name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .servico-desc {
+      font-family: var(--body);
+      font-size: 0.84rem;
+      color: var(--gray);
+      font-style: italic;
+    }
+
+    .servico-cta {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mustard);
+      opacity: 0;
+      transition: opacity 0.2s;
+      margin-top: 0.2rem;
+    }
+
+    .servico-item:hover .servico-cta { opacity: 1; }
+
+    /* ── ARTIGOS ── */
+    #artigos { background: var(--cream); }
+
+    .artigos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--text);
+    }
+
+    .artigo-card {
+      padding: 2rem;
+      border-right: 1px solid var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.25s, color 0.25s;
+      position: relative;
+    }
+
+    .artigo-card:last-child { border-right: none; }
+
+    .artigo-card:hover {
+      background: var(--text);
+      color: var(--white);
+    }
+
+    .artigo-card:hover .artigo-tag {
+      color: var(--mustard);
+      border-color: var(--mustard);
+    }
+
+    .artigo-card:hover .artigo-desc { color: #bbb; }
+    .artigo-card:hover .artigo-meta { color: #888; }
+    .artigo-card:hover .artigo-arrow { color: var(--mustard); }
+
+    .artigo-tag {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--gray-light);
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      color: var(--gray);
+      transition: color 0.25s, border-color 0.25s;
+      width: fit-content;
+    }
+
+    .artigo-title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .artigo-desc {
+      font-family: var(--body);
+      font-size: 0.87rem;
+      line-height: 1.65;
+      color: var(--gray);
+      flex: 1;
+      transition: color 0.25s;
+    }
+
+    .artigo-meta {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--gray);
+      letter-spacing: 0.05em;
+      transition: color 0.25s;
+    }
+
+    .artigo-arrow {
+      font-size: 1.1rem;
+      transition: color 0.25s;
+      align-self: flex-end;
+    }
+
+    /* ── CONTEÚDO & REDES ── */
+    #redes { background: var(--white); }
+
+    .redes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .rede-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .rede-thumb {
+      aspect-ratio: 1/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .rede-thumb-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.35s ease;
+    }
+
+    .rede-card:hover .rede-thumb-inner { transform: scale(1.04); }
+
+    .rede-thumb.c1 { background: #F0E8D5; }
+    .rede-thumb.c2 { background: #E4ECF0; }
+    .rede-thumb.c3 { background: #EDE8F0; }
+
+    .rede-thumb-icon {
+      font-size: 1.8rem;
+      opacity: 0.4;
+    }
+
+    .rede-thumb-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .rede-info { display: flex; flex-direction: column; gap: 0.3rem; }
+
+    .rede-format {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mustard);
+    }
+
+    .rede-name {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .rede-date {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--gray);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── CAMPANHAS ── */
+    #campanhas { background: var(--cream); }
+
+    .campanhas-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      max-width: 640px;
+    }
+
+    .camp-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .camp-thumb {
+      aspect-ratio: 4/5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .camp-thumb-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.35s ease;
+    }
+
+    .camp-card:hover .camp-thumb-inner { transform: scale(1.03); }
+
+    .camp-thumb.p1 { background: var(--text); color: var(--white); }
+    .camp-thumb.p2 { background: #1C1C2E; color: var(--white); }
+
+    .camp-thumb-icon { font-size: 1.8rem; opacity: 0.4; }
+    .camp-thumb-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .camp-info { display: flex; flex-direction: column; gap: 0.3rem; }
+
+    .camp-format {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mustard);
+    }
+
+    .camp-name {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .camp-context {
+      font-family: var(--body);
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-style: italic;
+    }
+
+    /* ── CONTATO ── */
+    #contato {
+      min-height: 52vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--black);
+      color: var(--white);
+      border-bottom: none;
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 4rem;
+    }
+
+    .cta-bg {
+      position: absolute;
+      right: -3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: 28vw;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .cta-content { position: relative; z-index: 1; }
+
+    #contato .section-label {
+      color: var(--mustard);
+    }
+
+    #contato .section-label::after {
+      background: var(--mustard);
+    }
+
+    .cta-title {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 2rem;
+      color: var(--white);
+    }
+
+    .cta-title em {
+      font-style: italic;
+      color: var(--mustard);
+    }
+
+    .cta-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-link-primary {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--mustard);
+      padding: 0.85rem 2rem;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .cta-link-primary:hover {
+      background: #D4A017;
+    }
+
+    .cta-link {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--white);
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      padding-bottom: 0.2rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .cta-link:hover {
+      color: var(--mustard);
+      border-color: var(--mustard);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      color: var(--gray);
+      padding: 1.4rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #1E1E1E;
+    }
+
+    footer span {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMAÇÕES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      header { padding: 1rem 1.5rem; }
+      nav { gap: 1.2rem; }
+      #hero { padding: 6rem 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      #sobre { grid-template-columns: 1fr; gap: 3rem; }
+      .artigos-grid { grid-template-columns: 1fr; }
+      .artigo-card { border-right: none; border-bottom: 1px solid var(--text); }
+      .artigo-card:last-child { border-bottom: none; }
+      .redes-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .campanhas-grid { grid-template-columns: 1fr; max-width: 100%; }
+      #contato { padding: 4rem 1.5rem; }
+      footer { padding: 1.2rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="#hero" class="logo">Juno Giordano<span>.</span></a>
+    <nav>
+      <a href="#sobre">Sobre</a>
+      <a href="#artigos">Trabalhos</a>
+      <a href="#contato" class="nav-cta">Contato</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-char" aria-hidden="true">J</div>
+    <p class="hero-label">Redação · Conteúdo · Campanhas</p>
+    <h1 class="hero-title">
+      Palavras que<br><em>informam,</em><br>convencem<br>e <em>ressoam.</em>
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-tagline">
+        <strong>Juno Giordano</strong> · Estudante de Publicidade &amp; Jornalismo
+        com foco em redação editorial, conteúdo para redes e campanhas com propósito.
+      </p>
+      <a href="#artigos" class="hero-scroll">Ver trabalhos</a>
+    </div>
+  </section>
+
+  <!-- SOBRE / SERVIÇOS -->
+  <section id="sobre">
+    <div class="sobre-col reveal">
+      <p class="section-label">Sobre</p>
+      <p class="sobre-text">
+        Sou estudante de Publicidade e Jornalismo com o olho afiado para o que
+        uma palavra bem colocada pode fazer. Meu trabalho vive na interseção entre
+        <strong>informação e persuasão</strong> — artigos que educam, carrosséis
+        que prendem, campanhas que movem.
+        <br /><br />
+        Acredito que boa redação não é só clareza: é ritmo, é escolha, é
+        entender quem está do outro lado.
+      </p>
+    </div>
+    <div class="sobre-col reveal">
+      <p class="section-label">Serviços</p>
+      <div class="servicos-grid">
+
+        <a href="#contato" class="servico-item">
+          <span class="servico-num">01</span>
+          <span class="servico-name">Artigos e conteúdo editorial</span>
+          <span class="servico-desc">Textos informativos com voz autoral e rigor jornalístico.</span>
+          <span class="servico-cta">Falar sobre este serviço →</span>
+        </a>
+
+        <a href="#contato" class="servico-item">
+          <span class="servico-num">02</span>
+          <span class="servico-name">Copywriting para redes sociais</span>
+          <span class="servico-desc">Carrosséis, legendas e conteúdo educativo que engaja.</span>
+          <span class="servico-cta">Falar sobre este serviço →</span>
+        </a>
+
+        <a href="#contato" class="servico-item">
+          <span class="servico-num">03</span>
+          <span class="servico-name">Redação de campanhas</span>
+          <span class="servico-desc">Conceito verbal, slogan e textos para peças publicitárias.</span>
+          <span class="servico-cta">Falar sobre este serviço →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTIGOS & EDITORIAL -->
+  <section id="artigos">
+    <p class="section-label reveal">Artigos &amp; Editorial</p>
+    <div class="artigos-grid reveal">
+
+      <a href="https://www.iri.puc-rio.br/wp-content/uploads/2025/01/Radar-Asia-Pacifico-Dezembro-2024-1.pdf"
+         class="artigo-card"
+         target="_blank"
+         rel="noopener noreferrer">
+        <span class="artigo-tag">Análise Internacional</span>
+        <h3 class="artigo-title">Radar Ásia-Pacífico</h3>
+        <p class="artigo-desc">Análise quinzenal sobre dinâmicas geopolíticas na região, com foco em Coreia do Sul, Japão, China e Taiwan — publicado pelo IRI/PUC-Rio.</p>
+        <span class="artigo-meta">IRI/PUC-Rio · Janeiro 2025</span>
+        <span class="artigo-arrow">↗</span>
+      </a>
+
+      <a href="https://www.iri.puc-rio.br/wp-content/uploads/2025/05/Radar-Asia-Pacifico-Maio-2025.pdf"
+         class="artigo-card"
+         target="_blank"
+         rel="noopener noreferrer">
+        <span class="artigo-tag">Análise Internacional</span>
+        <h3 class="artigo-title">Radar Ásia-Pacífico · Maio 2025</h3>
+        <p class="artigo-desc">Novas tensões e alianças na Ásia-Pacífico: análise aprofundada sobre Coreia do Norte, relações EUA-China e o papel da ASEAN.</p>
+        <span class="artigo-meta">IRI/PUC-Rio · Maio 2025</span>
+        <span class="artigo-arrow">↗</span>
+      </a>
+
+      <a href="https://www.iri.puc-rio.br/wp-content/uploads/2026/01/Radar-Asia-Pacifico_Dezember.pdf"
+         class="artigo-card"
+         target="_blank"
+         rel="noopener noreferrer">
+        <span class="artigo-tag">Análise Internacional</span>
+        <h3 class="artigo-title">Radar Ásia-Pacífico · Dezembro 2025</h3>
+        <p class="artigo-desc">Balanço anual das relações na Ásia-Pacífico: Taiwan, disputas marítimas e o reposicionamento do Japão e Índia no cenário global.</p>
+        <span class="artigo-meta">IRI/PUC-Rio · Janeiro 2026</span>
+        <span class="artigo-arrow">↗</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CONTEÚDO & REDES -->
+  <section id="redes">
+    <p class="section-label reveal">Conteúdo &amp; Redes</p>
+    <div class="redes-grid reveal">
+
+      <a href="https://www.instagram.com/p/DB377fHpJnn/?img_index=1"
+         class="rede-card"
+         target="_blank"
+         rel="noopener noreferrer">
+        <div class="rede-thumb c1">
+          <div class="rede-thumb-inner">
+            <span class="rede-thumb-icon">◈</span>
+            <span class="rede-thumb-label">Carrossel</span>
+          </div>
+        </div>
+        <div class="rede-info">
+          <span class="rede-format">Carrossel · Instagram</span>
+          <span class="rede-name">Carrossel 1</span>
+          <span class="rede-date">2 de novembro de 2024</span>
+        </div>
+      </a>
+
+      <a href="https://www.instagram.com/p/DCUrr0rPA4p/?img_index=12"
+         class="rede-card"
+         target="_blank"
+         rel="noopener noreferrer">
+        <div class="rede-thumb c2">
+          <div class="rede-thumb-inner">
+            <span class="rede-thumb-icon">◈</span>
+            <span class="rede-thumb-label">Carrossel</span>
+          </div>
+        </div>
+        <div class="rede-info">
+          <span class="rede-format">Carrossel · Instagram</span>
+          <span class="rede-name">Carrossel 2</span>
+          <span class="rede-date">13 de novembro de 2024</span>
+        </div>
+      </a>
+
+      <a href="https://www.instagram.com/p/DMLSVbUR6gu/?img_index=1"
+         class="rede-card"
+         target="_blank"
+         rel="noopener noreferrer">
+        <div class="rede-thumb c3">
+          <div class="rede-thumb-inner">
+            <span class="rede-thumb-icon">◈</span>
+            <span class="rede-thumb-label">Carrossel</span>
+          </div>
+        </div>
+        <div class="rede-info">
+          <span class="rede-format">Carrossel · Instagram</span>
+          <span class="rede-name">Carrossel 3</span>
+          <span class="rede-date">16 de julho de 2025</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CAMPANHAS & COPY -->
+  <section id="campanhas">
+    <p class="section-label reveal">Campanhas &amp; Copy</p>
+    <div class="campanhas-grid reveal">
+
+      <div class="camp-card">
+        <div class="camp-thumb p1">
+          <div class="camp-thumb-inner">
+            <span class="camp-thumb-icon" style="color: var(--mustard-warm)">▣</span>
+            <span class="camp-thumb-label">Cartaz</span>
+          </div>
+        </div>
+        <div class="camp-info">
+          <span class="camp-format">Cartaz · Processo Seletivo</span>
+          <span class="camp-name">Título da Campanha 1</span>
+          <span class="camp-context">Entidade ou contexto da campanha</span>
+        </div>
+      </div>
+
+      <div class="camp-card">
+        <div class="camp-thumb p2">
+          <div class="camp-thumb-inner">
+            <span class="camp-thumb-icon" style="color: var(--mustard-warm)">▣</span>
+            <span class="camp-thumb-label">Cartaz</span>
+          </div>
+        </div>
+        <div class="camp-info">
+          <span class="camp-format">Cartaz · Processo Seletivo</span>
+          <span class="camp-name">Título da Campanha 2</span>
+          <span class="camp-context">Entidade ou contexto da campanha</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="cta-bg" aria-hidden="true">?</div>
+    <div class="cta-content">
+      <p class="section-label">Contato</p>
+      <h2 class="cta-title">
+        Tem um projeto?<br><em>Fala comigo.</em>
+      </h2>
+      <div class="cta-links">
+        <a href="mailto:jungio.2005@gmail.com" class="cta-link-primary">Enviar e-mail</a>
+        <a href="https://www.linkedin.com/in/juno-giordano-832291318/"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="cta-link">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Juno Giordano — Todos os direitos reservados</span>
+    <span>Redação &amp; Conteúdo · Rio de Janeiro, BR</span>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 90);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
