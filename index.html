@@ -418,7 +418,17 @@
       text-align: center;
       transition: transform 0.35s ease;
     }
+  
+    .rede-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
 
+.rede-card:hover .rede-thumb img {
+  transform: scale(1.04);
+}
     .rede-card:hover .rede-thumb-inner { transform: scale(1.04); }
 
     .rede-thumb.c1 { background: #F0E8D5; }
@@ -428,7 +438,7 @@
     .rede-thumb-icon {
       font-size: 1.8rem;
       opacity: 0.4;
-    }
+    } 
 
     .rede-thumb-label {
       font-family: var(--mono);
@@ -803,12 +813,9 @@
          class="rede-card"
          target="_blank"
          rel="noopener noreferrer">
-        <div class="rede-thumb c1">
-          <div class="rede-thumb-inner">
-            <span class="rede-thumb-icon">◈</span>
-            <span class="rede-thumb-label">Carrossel</span>
-          </div>
-        </div>
+      <div class="rede-thumb">
+  <img src="diwali.jpg" alt="Diwali, o festival das luzes" />
+</div>
         <div class="rede-info">
           <span class="rede-format">Carrossel Educativo · Instagram</span>
           <span class="rede-name">Diwali, o festival das luzes</span>
