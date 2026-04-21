@@ -482,6 +482,16 @@
       max-width: 640px;
     }
 
+    .camp-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.camp-card:hover .camp-thumb img {
+  transform: scale(1.03);
+}
     .camp-card {
       display: flex;
       flex-direction: column;
@@ -859,34 +869,27 @@
     <p class="section-label reveal">Campanhas &amp; Copy</p>
     <div class="campanhas-grid reveal">
 
-      <div class="camp-card">
-        <div class="camp-thumb p1">
-          <div class="camp-thumb-inner">
-            <span class="camp-thumb-icon" style="color: var(--mustard-warm)">▣</span>
-            <span class="camp-thumb-label">Cartaz</span>
-          </div>
-        </div>
-        <div class="camp-info">
-          <span class="camp-format">Cartaz · Processo Seletivo</span>
-          <span class="camp-name">Título da Campanha 1</span>
-          <span class="camp-context">Entidade ou contexto da campanha</span>
-        </div>
-      </div>
+     <div class="camp-card">
+  <div class="camp-thumb p1">
+    <img src="images/oferta.jpg" alt="Descrição do cartaz" />
+  </div>
+  <div class="camp-info">
+    <span class="camp-format">Cartaz · Processo Seletivo</span>
+    <span class="camp-name">Título real da campanha</span>
+    <span class="camp-context">Contexto real da campanha</span>
+  </div>
+</div>
 
-      <div class="camp-card">
-        <div class="camp-thumb p2">
-          <div class="camp-thumb-inner">
-            <span class="camp-thumb-icon" style="color: var(--mustard-warm)">▣</span>
-            <span class="camp-thumb-label">Cartaz</span>
-          </div>
-        </div>
-        <div class="camp-info">
-          <span class="camp-format">Cartaz · Processo Seletivo</span>
-          <span class="camp-name">Título da Campanha 2</span>
-          <span class="camp-context">Entidade ou contexto da campanha</span>
-        </div>
-      </div>
-
+     <div class="camp-card">
+  <div class="camp-thumb p2">
+    <img src="images/paint.jpg" alt="Descrição do cartaz" />
+  </div>
+  <div class="camp-info">
+    <span class="camp-format">Cartaz · Processo Seletivo</span>
+    <span class="camp-name">Título real da campanha</span>
+    <span class="camp-context">Contexto real da campanha</span>
+  </div>
+</div>
     </div>
   </section>
 
